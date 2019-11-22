@@ -5910,13 +5910,15 @@ $$</p>
 </blockquote>
 <p>Let $G$ be the graph shown in the first picture, $G_\pi = (V, E_\pi)$ be the graph shown in the second picture, and $s$ be the source vertex.</p>
 <p>We could see that $E_\pi$ will never be produced by running BFS on $G$.</p>
+<p><center>
+<img alt="" src="../../img/22.2-6-1.png" />
+<img alt="" src="../../img/22.2-6-2.png" />
+</center></p>
 <ul>
 <li>If $y$ precedes $v$ in the $Adj[s]$. We'll dequeue $y$ before $v$, so $u.\pi$ and $x.\pi$ are both $y$. However, this is not the case.</li>
 <li>If $v$ preceded $y$ in the $Adj[s]$. We'll dequeue $v$ before $y$, so $u.\pi$ and $x.\pi$ are both $v$, which again isn't true.</li>
 </ul>
 <p>Nonetheless, the unique simple path in $G_\pi$ from $s$ to any vertex is a shortest path in $G$.</p>
-<p><img alt="" src="../../img/22.2-6-1.png" />
-<img alt="" src="../../img/22.2-6-2.png" /></p>
 <h2 id="222-7">22.2-7</h2>
 <blockquote>
 <p>There are two types of professional wrestlers: "babyfaces" ("good guys") and "heels" ("bad guys"). Between any pair of professional wrestlers, there may or may not be a rivalry. Suppose we have $n$ professional wrestlers and we have a list of $r$ pairs of wrestlers for which there are rivalries. Give an $O(n + r)$-time algorithm that determines whether it is possible to designate some of the wrestlers as babyfaces and the remainder as heels such that each rivalry is between a babyface and a heel. If it is possible to perform such a designation, your algorithm should produce it.</p>
