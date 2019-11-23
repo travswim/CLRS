@@ -5968,6 +5968,7 @@ $$</p>
 <p>Show how depth-first search works on the graph of Figure 22.6. Assume that the <strong>for</strong> loop of lines 5–7 of the $\text{DFS}$ procedure considers the vertices in alphabetical order, and assume that each adjacency list is ordered alphabetically. Show the discovery and finishing times for each vertex, and show the classification of each edge.</p>
 </blockquote>
 <p>The following table gives the discovery time and finish time for each vetex in the graph.</p>
+<p>See the <a href="https://github.com/walkccc/CLRS-cpp/blob/master/Chap22/22.3.cpp">C++ demo</a>.</p>
 <p>$$
 \begin{array}{ccc}
 \text{Vertex} &amp; \text{Discovered} &amp; \text{Finished} \\
@@ -5999,7 +6000,7 @@ $$</p>
 <blockquote>
 <p>Show that using a single bit to store each vertex color suffices by arguing that the $\text{DFS}$ procedure would produce the same result if line 3 of $\text{DFS-VISIT}$ was removed.</p>
 </blockquote>
-<p>(Removed)</p>
+<p>Change line 3 to <code>color = BLACK</code> and remove line 8. Then, the algorithm would produce the same result.</p>
 <h2 id="223-5">22.3-5</h2>
 <blockquote>
 <p>Show that edge $(u, v)$ is</p>
@@ -6007,7 +6008,9 @@ $$</p>
 <p><strong>b.</strong> a back edge if and only if $v.d \le u.d &lt; u.f \le v.f$, and</p>
 <p><strong>c.</strong> a cross edge if and only if $v.d &lt; v.f &lt; u.d &lt; u.f$.</p>
 </blockquote>
-<p>(Removed)</p>
+<p><strong>a.</strong> $u$ is an ancestore of $v$.</p>
+<p><strong>b.</strong> $u$ is a descendant of $v$.</p>
+<p><strong>c.</strong> $u$ is visited before $u$.</p>
 <h2 id="223-6">22.3-6</h2>
 <blockquote>
 <p>Show that in an undirected graph, classifying an edge $(u, v)$ as a tree edge or a back edge according to whether $(u, v)$ or $(v, u)$ is encountered first during the depth-first search is equivalent to classifying it according to the ordering of the four types in the classification scheme.</p>
