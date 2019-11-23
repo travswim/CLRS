@@ -5921,45 +5921,48 @@
 <blockquote>
 <p>Make a $3$-by-$3$ chart with row and column labels $\text{WHITE}$, $\text{GRAY}$, and $\text{BLACK}$. In each cell $(i, j)$, indicate whether, at any point during a depth-first search of a directed graph, there can be an edge from a vertex of color $i$ to a vertex of color $j$. For each possible edge, indicate what edge types it can be. Make a second such chart for depth-first search of an undirected graph.</p>
 </blockquote>
-<p>According to Theorem 22.7, there are 3 cases of relationship between interval of vertex $u$ and $v$, $u.interval \subset v.interval$, $v.interval \subset u.interval$, and $u.interval$ is detached from $u.interval$. We judge the possibility according to this Theorem.</p>
+<p>According to Theorem 22.7 (Parenthesis theorem), there are 3 cases of relationship between intervals of vertex $u$ and $v$:</p>
+<ul>
+<li>$[u.d, u.f]$ and $[v.d, v.f]$ are entirely disjointed,</li>
+<li>$[u.d, u.f] \subset [v.d, v.f]$, and</li>
+<li>$[v.d, v.f] \subset [u.d, u.f]$.</li>
+</ul>
+<p>We judge the possibility according to this Theorem.</p>
 <ul>
 <li>
-<p>For Directed Graph, we can use the edge classification given by exercise 22.3-5 to simplify the problem.</p>
+<p>For <strong>directed graph</strong>, we can use the edge classification given by exercise 22.3-5 to simplify the problem.</p>
+<p>$$
+\begin{array}{c|ccc}
+from \diagdown to &amp; \text{WHITE}         &amp; \text{GRAY}                &amp; \text{BLACK} \\
+\hline
+\text{WHITE}      &amp; \text{All kinds}     &amp; \text{Cross, Back}         &amp; \text{Cross} \\
+\text{GRAY}       &amp; \text{Tree, Forward} &amp; \text{Tree, Forward, Back} &amp; \text{Tree, Forward, Cross} \\
+\text{BLACK}      &amp; -                    &amp; \text{Back}                &amp; \text{All kinds}
+\end{array}
+$$</p>
 </li>
 <li>
-<p>$\text{BLACK}$ to $\text{BLACK}$ and $\text{WHITE}$ to $\text{WHITE}$ works with everything, we omit this two later.</p>
-</li>
-<li>Cross Edge $(u, v)$ could be $\text{WHITE}$ to $\text{BLACK}$, $\text{WHITE}$ to $\text{GRAY}$ or $\text{GRAY}$ to $\text{BLACK}$.</li>
-<li>Tree or Forward Edge $(u, v)$ could be $\text{GRAY}$ to $\text{WHITE}$, $\text{GRAY}$ to $\text{GRAY}$ or $\text{GRAY}$ to $\text{BLACK}$.</li>
-<li>Back Edge $(u, v)$ could be $\text{WHITE}$ to $\text{GRAY}$, $\text{GRAY}$ to $\text{GRAY}$ or $\text{BLACK}$ to $\text{GRAY}$.</li>
-</ul>
-<p>$$
-  \begin{array}{c|ccc}
-  from\backslash to &amp; \text{BLACK}                &amp; \text{GRAY}                &amp; \text{WHITE} \\
-  \hline
-  \text{BLACK}      &amp; \text{Allkinds}             &amp; \text{Back}                &amp; - \\
-  \text{GRAY}       &amp; \text{Tree, Forward, Cross} &amp; \text{Tree, Forward, Back} &amp; \text{Tree, Forward} \\
-  \text{WHITE}      &amp; \text{Cross}                &amp; \text{Cross, Back}         &amp; \text{Allkinds}
-  \end{array}
-  $$</p>
+<p>For <strong>undirected graph</strong>, starting from directed chart, we remove the forward edge and the cross edge, and </p>
 <ul>
-<li>
-<p>For Undirected Graph, starting from Directed Chart, we remove the Forward Edge and Cross Edge, and when a Back Edge exist, we add Tree Edge; when a Tree Edge exist, we add Back Edge. This is correct for following reason:</p>
-</li>
-<li>
-<p>Theorem 22.10: In a depth-first search of an undirected graph $G$, every edge of $G$ is either a tree edge or a back edge. So Tree edge and back edge only.</p>
-</li>
-<li>If $(u, v)$ is a Tree edge from $u$'s perspective, $(u, v)$ is also a Back Edge from $v$'s perspective.</li>
+<li>when a back edge exist, we add a tree edge;</li>
+<li>when a tree edge exist, we add a back edge.</li>
 </ul>
+<p>This is correct for the following reasons:</p>
+<ol>
+<li>Theorem 22.10: In a depth-first search of an undirected graph $G$, every edge of $G$ is either a tree or back edge. So tree and back edge only.</li>
+<li>If $(u, v)$ is a tree edge from $u$'s perspective, $(u, v)$ is also a back edge from $v$'s perspective.</li>
+</ol>
 <p>$$
-  \begin{array}{c|ccc}
-  from\backslash to &amp; \text{BLACK}      &amp; \text{GRAY}       &amp; \text{WHITE} \\
-  \hline
-  \text{BLACK}      &amp; \text{Tree, Back} &amp; \text{Tree, Back} &amp; - \\
-  \text{GRAY}       &amp; \text{Tree, Back} &amp; \text{Tree, Back} &amp; \text{Tree, Back} \\
-  \text{WHITE}      &amp; -                 &amp; \text{Tree, Back} &amp; \text{Tree, Back}
-  \end{array}
-  $$</p>
+\begin{array}{c|ccc}
+from \diagdown to &amp; \text{WHITE}      &amp; \text{GRAY}       &amp; \text{BLACK} \\
+\hline
+\text{WHITE}      &amp; -                 &amp; \text{Tree, Back} &amp; \text{Tree, Back} \\
+\text{GRAY}       &amp; \text{Tree, Back} &amp; \text{Tree, Back} &amp; \text{Tree, Back} \\
+\text{BLACK}      &amp; \text{Tree, Back} &amp; \text{Tree, Back} &amp; -
+\end{array}
+$$</p>
+</li>
+</ul>
 <h2 id="223-2">22.3-2</h2>
 <blockquote>
 <p>Show how depth-first search works on the graph of Figure 22.6. Assume that the <strong>for</strong> loop of lines 5–7 of the $\text{DFS}$ procedure considers the vertices in alphabetical order, and assume that each adjacency list is ordered alphabetically. Show the discovery and finishing times for each vertex, and show the classification of each edge.</p>
