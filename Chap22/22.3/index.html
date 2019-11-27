@@ -6095,7 +6095,8 @@ $$</p>
 <blockquote>
 <p>Modify the pseudocode for depth-first search so that it prints out every edge in the directed graph $G$, together with its type. Show what modifications, if any, you need to make if $G$ is undirected.</p>
 </blockquote>
-<p>We need only update $\text{DFS-VISIT}$. If $G$ is undirected we don't need to make any modifications. We simply note that lines 11 through 16 will never be executed.</p>
+<p>If $G$ is undirected we don't need to make any modifications.</p>
+<p>See the <a href="https://github.com/walkccc/CLRS-cpp/blob/master/Chap22/22.3-10/22.3-10.cpp">C++ demo</a>.</p>
 <table class="codehilitetable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span> 1
  2
  3
@@ -6110,7 +6111,10 @@ $$</p>
 12
 13
 14
-15</pre></div></td><td class="code"><div class="codehilite"><pre><span></span><span class="n">DFS</span><span class="o">-</span><span class="n">VISIT</span><span class="o">-</span><span class="n">PRINT</span><span class="p">(</span><span class="n">G</span><span class="p">,</span> <span class="n">u</span><span class="p">)</span>
+15
+16
+17
+18</pre></div></td><td class="code"><div class="codehilite"><pre><span></span><span class="n">DFS</span><span class="o">-</span><span class="n">VISIT</span><span class="o">-</span><span class="n">PRINT</span><span class="p">(</span><span class="n">G</span><span class="p">,</span> <span class="n">u</span><span class="p">)</span>
     <span class="n">time</span> <span class="o">=</span> <span class="n">time</span> <span class="o">+</span> <span class="mi">1</span>
     <span class="n">u</span><span class="p">.</span><span class="n">d</span> <span class="o">=</span> <span class="n">time</span>
     <span class="n">u</span><span class="p">.</span><span class="n">color</span> <span class="o">=</span> <span class="n">GRAY</span>
@@ -6121,10 +6125,13 @@ $$</p>
             <span class="n">DFS</span><span class="o">-</span><span class="n">VISIT</span><span class="o">-</span><span class="n">PRINT</span><span class="p">(</span><span class="n">G</span><span class="p">,</span> <span class="n">v</span><span class="p">)</span>
         <span class="k">else</span> <span class="k">if</span> <span class="n">v</span><span class="p">.</span><span class="n">color</span> <span class="o">==</span> <span class="n">GRAY</span>
             <span class="n">print</span> <span class="s">&quot;(u, v) is a back edge.&quot;</span>
-        <span class="k">else</span>
-            <span class="k">if</span> <span class="n">v</span><span class="p">.</span><span class="n">d</span> <span class="o">&gt;</span> <span class="n">u</span><span class="p">.</span><span class="n">d</span>
-                <span class="n">print</span> <span class="s">&quot;(u, v) is a forward edge.&quot;</span>
-            <span class="k">else</span> <span class="n">print</span> <span class="s">&quot;(u, v) is a cross edge.&quot;</span>
+        <span class="k">else</span> <span class="k">if</span> <span class="n">v</span><span class="p">.</span><span class="n">d</span> <span class="o">&gt;</span> <span class="n">u</span><span class="p">.</span><span class="n">d</span>
+            <span class="n">print</span> <span class="s">&quot;(u, v) is a forward edge.&quot;</span>
+        <span class="k">else</span> 
+            <span class="n">print</span> <span class="s">&quot;(u, v) is a cross edge.&quot;</span>
+    <span class="n">u</span><span class="p">.</span><span class="n">color</span> <span class="o">=</span> <span class="n">BLACK</span>
+    <span class="n">time</span> <span class="o">=</span> <span class="n">time</span> <span class="o">+</span> <span class="mi">1</span>
+    <span class="n">u</span><span class="p">.</span><span class="n">f</span> <span class="o">=</span> <span class="n">time</span>
 </pre></div>
 </td></tr></table>
 
