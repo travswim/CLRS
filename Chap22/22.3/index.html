@@ -6020,6 +6020,7 @@ $$</p>
 <blockquote>
 <p>Rewrite the procedure $\text{DFS}$, using a stack to eliminate recursion.</p>
 </blockquote>
+<p>See the <a href="https://github.com/walkccc/CLRS-cpp/blob/master/Chap22/22.3-7/22.3-7.cpp">C++ demo</a>.</p>
 <table class="codehilitetable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span> 1
  2
  3
@@ -6043,7 +6044,12 @@ $$</p>
 21
 22
 23
-24</pre></div></td><td class="code"><div class="codehilite"><pre><span></span><span class="n">DFS</span><span class="p">(</span><span class="n">G</span><span class="p">,</span> <span class="n">s</span><span class="p">)</span>
+24
+25
+26
+27
+28
+29</pre></div></td><td class="code"><div class="codehilite"><pre><span></span><span class="n">DFS</span><span class="o">-</span><span class="n">STACK</span><span class="p">(</span><span class="n">G</span><span class="p">)</span>
     <span class="k">for</span> <span class="n">each</span> <span class="n">vertex</span> <span class="n">u</span> <span class="err">∈</span> <span class="n">G</span><span class="p">.</span><span class="n">V</span>
         <span class="n">u</span><span class="p">.</span><span class="n">color</span> <span class="o">=</span> <span class="n">WHITE</span>
         <span class="n">u</span><span class="p">.</span><span class="err">π</span> <span class="o">=</span> <span class="n">NIL</span>
@@ -6051,22 +6057,27 @@ $$</p>
     <span class="n">S</span> <span class="o">=</span> <span class="err">Ø</span>
     <span class="k">for</span> <span class="n">each</span> <span class="n">vertex</span> <span class="n">u</span> <span class="err">∈</span> <span class="n">G</span><span class="p">.</span><span class="n">V</span>
         <span class="k">if</span> <span class="n">u</span><span class="p">.</span><span class="n">color</span> <span class="o">==</span> <span class="n">WHITE</span>
+            <span class="n">time</span> <span class="o">=</span> <span class="n">time</span> <span class="o">+</span> <span class="mi">1</span>
+            <span class="n">u</span><span class="p">.</span><span class="n">d</span> <span class="o">=</span> <span class="n">time</span>
             <span class="n">u</span><span class="p">.</span><span class="n">color</span> <span class="o">=</span> <span class="n">GRAY</span>
-            <span class="n">S</span><span class="p">.</span><span class="n">PUSH</span><span class="p">(</span><span class="n">u</span><span class="p">)</span>
-            <span class="k">while</span> <span class="o">!</span><span class="n">S</span><span class="p">.</span><span class="n">EMPTY</span><span class="p">()</span>
-                <span class="n">time</span> <span class="o">=</span> <span class="n">time</span> <span class="o">+</span> <span class="mi">1</span>
-                <span class="n">u</span> <span class="o">=</span> <span class="n">S</span><span class="p">.</span><span class="n">TOP</span><span class="p">()</span>
-                <span class="k">if</span> <span class="n">u</span><span class="p">.</span><span class="n">color</span> <span class="o">==</span> <span class="n">GRAY</span>
-                    <span class="n">u</span><span class="p">.</span><span class="n">d</span> <span class="o">=</span> <span class="n">time</span>
-                    <span class="k">for</span> <span class="n">each</span> <span class="n">v</span> <span class="err">∈</span> <span class="n">G</span><span class="p">.</span><span class="n">Adj</span><span class="p">[</span><span class="n">u</span><span class="p">].</span><span class="n">REVERSE</span><span class="p">()</span>
-                        <span class="k">if</span> <span class="n">v</span><span class="p">.</span><span class="n">color</span> <span class="o">==</span> <span class="n">WHITE</span>
-                            <span class="n">v</span><span class="p">.</span><span class="n">color</span> <span class="o">=</span> <span class="n">GRAY</span>
-                            <span class="n">v</span><span class="p">.</span><span class="err">π</span> <span class="o">=</span> <span class="n">u</span>
-                            <span class="n">S</span><span class="p">.</span><span class="n">PUSH</span><span class="p">(</span><span class="n">v</span><span class="p">)</span>
-                    <span class="n">u</span><span class="p">.</span><span class="n">color</span> <span class="o">=</span> <span class="n">BLACK</span>
-                <span class="k">else</span> <span class="k">if</span> <span class="n">u</span><span class="p">.</span><span class="n">color</span> <span class="o">==</span> <span class="n">BLACK</span>
-                    <span class="n">u</span><span class="p">.</span><span class="n">f</span> <span class="o">=</span> <span class="n">time</span>
-                    <span class="n">S</span><span class="p">.</span><span class="n">POP</span><span class="p">()</span>
+            <span class="n">PUSH</span><span class="p">(</span><span class="n">S</span><span class="p">,</span> <span class="n">v</span><span class="p">)</span>
+            <span class="k">while</span> <span class="o">!</span><span class="n">STACK</span><span class="o">-</span><span class="n">EMPTY</span><span class="p">(</span><span class="n">S</span><span class="p">)</span>
+                <span class="n">v</span> <span class="o">=</span> <span class="n">TOP</span><span class="p">(</span><span class="n">S</span><span class="p">)</span>
+                <span class="n">isNeighborhoodsAllDiscovered</span> <span class="o">=</span> <span class="nb">true</span>
+                <span class="k">if</span> <span class="n">v</span><span class="p">.</span><span class="n">color</span> <span class="o">==</span> <span class="n">GRAY</span>
+                    <span class="k">for</span> <span class="n">each</span> <span class="n">vertex</span> <span class="n">w</span> <span class="err">∈</span> <span class="n">G</span><span class="p">.</span><span class="n">Adj</span><span class="p">[</span><span class="n">v</span><span class="p">]</span>
+                        <span class="k">if</span> <span class="n">w</span><span class="p">.</span><span class="n">color</span> <span class="o">==</span> <span class="n">WHITE</span>
+                            <span class="n">time</span> <span class="o">=</span> <span class="n">time</span> <span class="o">+</span> <span class="mi">1</span>
+                            <span class="n">w</span><span class="p">.</span><span class="n">d</span> <span class="o">=</span> <span class="n">time</span>
+                            <span class="n">w</span><span class="p">.</span><span class="n">color</span> <span class="o">=</span> <span class="n">GRAY</span>
+                            <span class="n">PUSH</span><span class="p">(</span><span class="n">S</span><span class="p">,</span> <span class="n">w</span><span class="p">)</span>
+                            <span class="n">isNeighborhoodsAllDiscovered</span> <span class="o">=</span> <span class="nb">false</span>
+                            <span class="k">break</span>
+                <span class="k">if</span> <span class="n">isNeighborhoodsAllDiscovered</span>
+                    <span class="n">time</span> <span class="o">=</span> <span class="n">time</span> <span class="o">+</span> <span class="mi">1</span>
+                    <span class="n">v</span><span class="p">.</span><span class="n">f</span> <span class="o">=</span> <span class="n">time</span>
+                    <span class="n">v</span><span class="p">.</span><span class="n">color</span> <span class="o">=</span> <span class="n">BLACK</span>
+                    <span class="n">POP</span><span class="p">(</span><span class="n">S</span><span class="p">)</span>
 </pre></div>
 </td></tr></table>
 
@@ -6100,20 +6111,20 @@ $$</p>
 13
 14
 15</pre></div></td><td class="code"><div class="codehilite"><pre><span></span><span class="n">DFS</span><span class="o">-</span><span class="n">VISIT</span><span class="o">-</span><span class="n">PRINT</span><span class="p">(</span><span class="n">G</span><span class="p">,</span> <span class="n">u</span><span class="p">)</span>
-  <span class="n">time</span> <span class="o">=</span> <span class="n">time</span> <span class="o">+</span> <span class="mi">1</span>
-  <span class="n">u</span><span class="p">.</span><span class="n">d</span> <span class="o">=</span> <span class="n">time</span>
-  <span class="n">u</span><span class="p">.</span><span class="n">color</span> <span class="o">=</span> <span class="n">GRAY</span>
-  <span class="k">for</span> <span class="n">each</span> <span class="n">v</span> <span class="err">∈</span> <span class="n">G</span><span class="p">.</span><span class="n">Adj</span><span class="p">[</span><span class="n">u</span><span class="p">]</span>
-      <span class="k">if</span> <span class="n">v</span><span class="p">.</span><span class="n">color</span> <span class="o">==</span> <span class="n">white</span>
-          <span class="n">print</span> <span class="s">&quot;(u, v) is a Tree edge.&quot;</span>
-          <span class="n">v</span><span class="p">.</span><span class="err">π</span> <span class="o">=</span> <span class="n">u</span>
-          <span class="n">DFS</span><span class="o">-</span><span class="n">VISIT</span><span class="o">-</span><span class="n">PRINT</span><span class="p">(</span><span class="n">G</span><span class="p">,</span> <span class="n">v</span><span class="p">)</span>
-      <span class="k">else</span> <span class="k">if</span> <span class="n">v</span><span class="p">.</span><span class="n">color</span> <span class="o">==</span> <span class="n">gray</span>
-          <span class="n">print</span> <span class="s">&quot;(u, v) is a Back edge.&quot;</span>
-      <span class="k">else</span>
-          <span class="k">if</span> <span class="n">v</span><span class="p">.</span><span class="n">d</span> <span class="o">&gt;</span> <span class="n">u</span><span class="p">.</span><span class="n">d</span>
-              <span class="n">print</span> <span class="s">&quot;(u, v) is a Forward edge.&quot;</span>
-          <span class="k">else</span> <span class="n">print</span> <span class="s">&quot;(u, v) is a Cross edge.&quot;</span>
+    <span class="n">time</span> <span class="o">=</span> <span class="n">time</span> <span class="o">+</span> <span class="mi">1</span>
+    <span class="n">u</span><span class="p">.</span><span class="n">d</span> <span class="o">=</span> <span class="n">time</span>
+    <span class="n">u</span><span class="p">.</span><span class="n">color</span> <span class="o">=</span> <span class="n">GRAY</span>
+    <span class="k">for</span> <span class="n">each</span> <span class="n">vertex</span> <span class="n">v</span> <span class="err">∈</span> <span class="n">G</span><span class="p">.</span><span class="n">Adj</span><span class="p">[</span><span class="n">u</span><span class="p">]</span>
+        <span class="k">if</span> <span class="n">v</span><span class="p">.</span><span class="n">color</span> <span class="o">==</span> <span class="n">WHITE</span>
+            <span class="n">print</span> <span class="s">&quot;(u, v) is a tree edge.&quot;</span>
+            <span class="n">v</span><span class="p">.</span><span class="err">π</span> <span class="o">=</span> <span class="n">u</span>
+            <span class="n">DFS</span><span class="o">-</span><span class="n">VISIT</span><span class="o">-</span><span class="n">PRINT</span><span class="p">(</span><span class="n">G</span><span class="p">,</span> <span class="n">v</span><span class="p">)</span>
+        <span class="k">else</span> <span class="k">if</span> <span class="n">v</span><span class="p">.</span><span class="n">color</span> <span class="o">==</span> <span class="n">GRAY</span>
+            <span class="n">print</span> <span class="s">&quot;(u, v) is a back edge.&quot;</span>
+        <span class="k">else</span>
+            <span class="k">if</span> <span class="n">v</span><span class="p">.</span><span class="n">d</span> <span class="o">&gt;</span> <span class="n">u</span><span class="p">.</span><span class="n">d</span>
+                <span class="n">print</span> <span class="s">&quot;(u, v) is a forward edge.&quot;</span>
+            <span class="k">else</span> <span class="n">print</span> <span class="s">&quot;(u, v) is a cross edge.&quot;</span>
 </pre></div>
 </td></tr></table>
 
