@@ -5846,21 +5846,23 @@
 </pre></div>
 </td></tr></table>
 
-<table class="codehilitetable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span>1
-2
-3
-4
-5
-6
-7
-8
-9</pre></div></td><td class="code"><div class="codehilite"><pre><span></span><span class="n">UNION</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">)</span>
+<table class="codehilitetable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span> 1
+ 2
+ 3
+ 4
+ 5
+ 6
+ 7
+ 8
+ 9
+10</pre></div></td><td class="code"><div class="codehilite"><pre><span></span><span class="n">UNION</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">)</span>
     <span class="n">L1</span> <span class="o">=</span> <span class="n">x</span><span class="p">.</span><span class="n">set</span>
     <span class="n">L2</span> <span class="o">=</span> <span class="n">y</span><span class="p">.</span><span class="n">set</span>
     <span class="n">L1</span><span class="p">.</span><span class="n">tail</span><span class="p">.</span><span class="n">next</span> <span class="o">=</span> <span class="n">L2</span><span class="p">.</span><span class="n">head</span>
     <span class="n">z</span> <span class="o">=</span> <span class="n">L2</span><span class="p">.</span><span class="n">head</span>
     <span class="k">while</span> <span class="n">z</span><span class="p">.</span><span class="n">next</span> <span class="o">!=</span> <span class="n">NIL</span>
         <span class="n">z</span><span class="p">.</span><span class="n">set</span> <span class="o">=</span> <span class="n">L1</span>
+        <span class="n">z</span> <span class="o">=</span> <span class="n">z</span><span class="p">.</span><span class="n">next</span>
     <span class="n">L1</span><span class="p">.</span><span class="n">tail</span> <span class="o">=</span> <span class="n">L2</span><span class="p">.</span><span class="n">tail</span>
     <span class="k">return</span> <span class="n">L1</span>
 </pre></div>
